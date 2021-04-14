@@ -52,7 +52,7 @@ function find_or_create_rule(existingRules, linter_line) {
     var exists = existingRules[linter_line.rule]
     if (exists) return exists; 
     var rule = {} 
-    rule.id = Object.keys (existingRules).length; 
+    rule.id = Object.keys (existingRules).length.toString(); 
     linter_line.id = rule.id; // link back to single id
     rule.shortDescription = { "text": linter_line.rule };
     rule.fullDescription = { "text": linter_line.details };
