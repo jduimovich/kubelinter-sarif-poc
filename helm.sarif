@@ -4,7 +4,7 @@
     {
       "originalUriBaseIds": {
         "PROJECTROOT": {
-          "uri": "g:\\Dev\\kubelinter-sarif-poc",
+          "uri": "/Users/jduimovich/dev/kubelinter-sarif-poc",
           "description": {
             "text": "The root directory for all project files."
           }
