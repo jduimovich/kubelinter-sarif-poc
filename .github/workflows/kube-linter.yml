@@ -1,6 +1,6 @@
 # Lint my PRs 
 name: Lint Pull Requests    
-on: [pull_request, workflow_dispatch]
+on: [push]
 jobs:    
   lint:
     name: Run Kube-Linter and output json sarif file
