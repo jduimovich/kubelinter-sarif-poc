@@ -1,4 +1,4 @@
-var fs = require('fs'); 
+var fs = require('fs');
 var sarif_template =
 {
     "version": "2.1.0",
@@ -29,7 +29,7 @@ if (args.length < 1) {
     console.log("You must pass a kubelinter output file");
     console.log("Usage:", process.argv[0], " input-file optional-output-file(default == output.sarif)");
     process.exit(0);
-} 
+}
 var inputFile = args[0];
 var outputFile = "output.sarif";
 if (args.length > 1) {
@@ -38,21 +38,21 @@ if (args.length > 1) {
 }
 
 //set or get rules
-function srules(sarif, optional_set) {
+function sarif_rules(sarif, optional_set) {
     if (optional_set) { sarif.runs[0].tool.driver.rules = optional_set }
     return sarif.runs[0].tool.driver.rules
 }
-function sresults(sarif, optional_set) {
+function sarif_results(sarif, optional_set) {
     if (optional_set) { sarif.runs[0].results = optional_set }
     return sarif.runs[0].results
 }
 
-var id = 0; 
+var id = 0;
 function find_or_create_rule(existingRules, linter_line) {
     var exists = existingRules[linter_line.rule]
-    if (exists) return exists; 
-    var rule = {} 
-    rule.id = Object.keys (existingRules).length.toString(); 
+    if (exists) return exists;
+    var rule = {}
+    rule.id = Object.keys(existingRules).length.toString();
     linter_line.id = rule.id; // link back to single id
     rule.shortDescription = { "text": linter_line.rule };
     rule.fullDescription = { "text": linter_line.details };
@@ -93,49 +93,51 @@ function writeJSON(file, value, then) {
         then(0)
     });
 }
- 
-function parseErrorLine(e) {  
-    var r = {}  
-    var idx = e.indexOf(':');
-    r.filename = e.substr(0, idx);    
-    e = e.substr(idx, e.length)
 
-    idx = e.indexOf('(check:');
-    r.msg = e.substr(1, idx-1 ).trim();
-    r.details = e.substr(idx, e.length ).trim();
+function parseErrorLine(linter_line) {
+    var r = {}
+    var idx = linter_line.indexOf(':');
+    r.filename = linter_line.substr(0, idx);
+    linter_line = linter_line.substr(idx, linter_line.length)
+
+    idx = linter_line.indexOf('(check:');
+    r.msg = linter_line.substr(1, idx - 1).trim();
+    r.details = linter_line.substr(idx, linter_line.length).trim();
 
     var idx1 = r.details.indexOf(':');
     var idx2 = r.details.indexOf(',');
-    r.rule = r.details.substr(idx1+1, idx2-idx1-1 ).trim();  
+    r.rule = r.details.substr(idx1 + 1, idx2 - idx1 - 1).trim();
     return r;
 }
 
-function createSarif (d1) {
+function createSarif(d1) {
     var lines = d1.split(/\r\n|\n/);
-    lines = lines.filter (
-        function (e) { return e.length != 0 && 
-              e.indexOf('(check:') != -1 })
-   
-    var results = [] 
-    var existing = {} 
-    lines.forEach (function (e) {
-        var r = parseErrorLine (e)   
-        find_or_create_rule(existing, r);   
-        results.push (new_result(r)) 
-    });  
-    var newRules = Object.keys(existing).map (function (e) { return existing[e]}); 
-    srules(sarif_template, newRules); 
-    sresults(sarif_template, results)
-    console.log(outputFile + " rules found: ", srules(sarif_template).length)
-    console.log(outputFile + " locations found: ", sresults(sarif_template).length)
+    lines = lines.filter(
+        function (e) {
+            return e.length != 0 &&
+                e.indexOf('(check:') != -1
+        })
+
+    var results = []
+    var existing = {}
+    lines.forEach(function (e) {
+        var r = parseErrorLine(e)
+        find_or_create_rule(existing, r);
+        results.push(new_result(r))
+    });
+    var newRules = Object.keys(existing).map(function (e) { return existing[e] });
+    sarif_rules(sarif_template, newRules);
+    sarif_results(sarif_template, results)
+    console.log(outputFile + " rules found: ", sarif_rules(sarif_template).length)
+    console.log(outputFile + " locations found: ", sarif_results(sarif_template).length)
     return sarif_template;
 }
- 
-    fs.readFile(inputFile, 'utf8', function (err, klintData) {
-        if (err) { 
-            console.log ("No File ", inputFile)
-        } else {  
-            var sarif = createSarif (klintData)
-            writeJSON(outputFile, sarif, process.exit)
-        }
-    }) 
+
+fs.readFile(inputFile, 'utf8', function (err, klintData) {
+    if (err) {
+        console.log("No File ", inputFile)
+    } else {
+        var sarif = createSarif(klintData)
+        writeJSON(outputFile, sarif, process.exit)
+    }
+})
