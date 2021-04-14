@@ -11,11 +11,11 @@ jobs:
         uses: jduimovich/kube-linter-action@main
         with:
           directory: deploy    
-          outputFile: kube-linter.out
-      - name: Convert raw text to sarif 
+          outputFile: kube-linter.sarif
+      - name: Show sarif
         run: |  
-          node kubelinter2sarif kube-linter.out output.sarif  
+          cat kube-linter.sarif
       - name: Upload result to GitHub Code Scanning
         uses: github/codeql-action/upload-sarif@v1
         with:
-          sarif_file: output.sarif
+          sarif_file: kube-linter.sarif
