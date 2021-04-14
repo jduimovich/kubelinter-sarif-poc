@@ -3,8 +3,8 @@ echo with filtering
 cat kube-linter.yaml
 sh kubelint.sh deploy kube-linter.yaml
 echo with no filtering
-sh kubelint.sh deploy kube-linter.yaml 
-sh kubelint.sh deploy kube-linter.yaml 2>klint.txt 
+sh kubelint.sh deploy 
+sh kubelint.sh deploy 2>klint.txt 
 echo "run sarif generator "
 node convert.js klint.txt output.sarif 
 jq . output.sarif > tmp.sarif
