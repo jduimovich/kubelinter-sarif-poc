@@ -46,7 +46,7 @@
             {
               "physicalLocation": {
                 "artifactLocation": {
-                  "uri": "deploy/actions-runner/templates/deployment.yaml",
+                  "uri": "/actions-runner/templates/deployment.yaml",
                   "uriBaseId": "PROJECTROOT"
                 },
                 "region": {
