@@ -5,7 +5,7 @@ The output from kubelinter is unstructured so this demo uses a node application 
 
 This output can be used used in IDEs and Github Actions Integrations 
 
-There is a version of this script integrated into github action is here https://github.com/jduimovich/kube-linter-action forked from the original stackrox action. 
+There is a version of this script integrated into github action is here https://github.com/jduimovich/kube-linter-action forked from the original stackrox action. This repo uses this action and will have some security scan issues found in this repo. To use this yourself, fork this repo, and run the action manually from the actions tab. 
 
 ```
 name: Lint  Requests    
@@ -29,8 +29,12 @@ jobs:
         with:
           sarif_file: kube-linter.sarif
 ```
+Output will look like this 
+![image](https://user-images.githubusercontent.com/7844190/114768519-f63e3980-9d36-11eb-987a-d40cdeea56ea.png)
 
-To see the use cases in the demo, run `sh demo.sh` or `demo.cmd` on Windows.
+
+
+To see the standalone use cases, run `sh demo.sh` or `demo.cmd` on Windows. This can be used to do development.
 
 The demo scans two types of yaml.
 
