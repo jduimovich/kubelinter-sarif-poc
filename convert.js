@@ -26,10 +26,11 @@ var sarif_template =
 
 var args = process.argv.splice(2);
 if (args.length < 1) {
-    console.log("You must pass kubelinter json file");
+    console.log("You must pass a kubelinter output file");
     console.log("Usage:", process.argv[0], " input-file optional-output-file(default == output.sarif)");
     process.exit(0);
 } 
+var inputFile = args[0];
 var outputFile = "output.sarif";
 if (args.length > 1) {
     outputFile = args[1]
@@ -128,7 +129,11 @@ function createSarif (d1) {
     return sarif_template;
 }
  
-    fs.readFile('klint.txt', 'utf8', function (err, klintData) {
-        var sarif = createSarif (klintData)
-        writeJSON(outputFile, sarif, process.exit)
+    fs.readFile(inputFile, 'utf8', function (err, klintData) {
+        if (err) { 
+            console.log ("No File ", inputFile)
+        } else {  
+            var sarif = createSarif (klintData)
+            writeJSON(outputFile, sarif, process.exit)
+        }
     }) 

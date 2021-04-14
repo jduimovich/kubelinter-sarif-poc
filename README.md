@@ -10,7 +10,13 @@ sh demo.sh
 
 or `demo.cmd` on Windows.
 
+The demo scans two types of yaml.
+The first is a deployment, with multiple yaml files.
 The converted output can be found in output.sarif, the original raw output in klint.txt.
+
+
+The secons is a helm chart directory. The output can be found in helm.sarif 
+
 
 
 You can view the sarif file in many ways

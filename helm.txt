@@ -1,0 +1,3 @@
+/dir/actions-runner/templates/deployment.yaml: (object: <no namespace>/test-release apps/v1, Kind=Deployment) container "test-release" does not have a read-only root file system (check: no-read-only-root-fs, remediation: Set readOnlyRootFilesystem to true in your container's securityContext.)
+
+Error: found 1 lint errors

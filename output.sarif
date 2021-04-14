@@ -65,7 +65,7 @@
             {
               "physicalLocation": {
                 "artifactLocation": {
-                  "uri": "deploy/services/service.yaml",
+                  "uri": "deploy/deploy/services/service.yaml",
                   "uriBaseId": "PROJECTROOT"
                 },
                 "region": {
@@ -84,7 +84,7 @@
             {
               "physicalLocation": {
                 "artifactLocation": {
-                  "uri": "deploy/services/fib-go/deployment.yaml",
+                  "uri": "deploy/deploy/services/fib-go/deployment.yaml",
                   "uriBaseId": "PROJECTROOT"
                 },
                 "region": {
@@ -102,7 +102,7 @@
             {
               "physicalLocation": {
                 "artifactLocation": {
-                  "uri": "deploy/services/fib-node/deployment.yaml",
+                  "uri": "deploy/deploy/services/fib-node/deployment.yaml",
                   "uriBaseId": "PROJECTROOT"
                 },
                 "region": {
@@ -120,7 +120,7 @@
             {
               "physicalLocation": {
                 "artifactLocation": {
-                  "uri": "deploy/services/fib-quarkus/deployment.yaml",
+                  "uri": "deploy/deploy/services/fib-quarkus/deployment.yaml",
                   "uriBaseId": "PROJECTROOT"
                 },
                 "region": {
