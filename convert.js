@@ -97,7 +97,7 @@ function writeJSON(file, value, then) {
 function parseErrorLine(e) {  
     var r = {}  
     var idx = e.indexOf(':');
-    r.filename =  'deploy' + e.substr(4, idx-4 );   // skip hardcoded /dir/ and prefix with deploy
+    r.filename =  e.substr(4, idx-4 );   // skip hardcoded /dir/ and prefix with deploy
     e = e.substr(idx, e.length)
 
     idx = e.indexOf('(check:');
