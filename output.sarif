@@ -15,7 +15,7 @@
           "name": "Kubelinter",
           "rules": [
             {
-              "id": 0,
+              "id": "0",
               "shortDescription": {
                 "text": "dangling-service"
               },
@@ -34,7 +34,7 @@
               }
             },
             {
-              "id": 1,
+              "id": "1",
               "shortDescription": {
                 "text": "no-anti-affinity"
               },
@@ -57,7 +57,7 @@
       },
       "results": [
         {
-          "ruleId": 0,
+          "ruleId": "0",
           "message": {
             "text": "(check: dangling-service, remediation: Make sure your service's selector correctly matches the labels on one of your deployments.)"
           },
@@ -65,7 +65,7 @@
             {
               "physicalLocation": {
                 "artifactLocation": {
-                  "uri": "/deploy/services/service.yaml",
+                  "uri": "deploy/services/service.yaml",
                   "uriBaseId": "PROJECTROOT"
                 },
                 "region": {
@@ -76,7 +76,7 @@
           ]
         },
         {
-          "ruleId": 1,
+          "ruleId": "1",
           "message": {
             "text": "(check: no-anti-affinity, remediation: Specify anti-affinity in your pod spec to ensure that the orchestrator attempts to schedule replicas on different nodes. You can do this by using podAntiAffinity, specifying a labelSelector that matches pods of this deployment, and setting the topologyKey to kubernetes.io/hostname. See https://kubernetes.io/docs/concepts/scheduling-eviction/assign-pod-node/#inter-pod-affinity-and-anti-affinity for more details.)"
           },
@@ -84,25 +84,7 @@
             {
               "physicalLocation": {
                 "artifactLocation": {
-                  "uri": "/deploy/services/fib-go/deployment.yaml",
-                  "uriBaseId": "PROJECTROOT"
-                },
-                "region": {
-                  "startLine": 1
-                }
-              }
-            }
-          ]
-        },
-        {
-          "message": {
-            "text": "(check: no-anti-affinity, remediation: Specify anti-affinity in your pod spec to ensure that the orchestrator attempts to schedule replicas on different nodes. You can do this by using podAntiAffinity, specifying a labelSelector that matches pods of this deployment, and setting the topologyKey to kubernetes.io/hostname. See https://kubernetes.io/docs/concepts/scheduling-eviction/assign-pod-node/#inter-pod-affinity-and-anti-affinity for more details.)"
-          },
-          "locations": [
-            {
-              "physicalLocation": {
-                "artifactLocation": {
-                  "uri": "/deploy/services/fib-node/deployment.yaml",
+                  "uri": "deploy/services/fib-go/deployment.yaml",
                   "uriBaseId": "PROJECTROOT"
                 },
                 "region": {
@@ -120,7 +102,25 @@
             {
               "physicalLocation": {
                 "artifactLocation": {
-                  "uri": "/deploy/services/fib-quarkus/deployment.yaml",
+                  "uri": "deploy/services/fib-node/deployment.yaml",
+                  "uriBaseId": "PROJECTROOT"
+                },
+                "region": {
+                  "startLine": 1
+                }
+              }
+            }
+          ]
+        },
+        {
+          "message": {
+            "text": "(check: no-anti-affinity, remediation: Specify anti-affinity in your pod spec to ensure that the orchestrator attempts to schedule replicas on different nodes. You can do this by using podAntiAffinity, specifying a labelSelector that matches pods of this deployment, and setting the topologyKey to kubernetes.io/hostname. See https://kubernetes.io/docs/concepts/scheduling-eviction/assign-pod-node/#inter-pod-affinity-and-anti-affinity for more details.)"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "deploy/services/fib-quarkus/deployment.yaml",
                   "uriBaseId": "PROJECTROOT"
                 },
                 "region": {

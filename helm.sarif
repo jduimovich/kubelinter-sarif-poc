@@ -15,7 +15,7 @@
           "name": "Kubelinter",
           "rules": [
             {
-              "id": 0,
+              "id": "0",
               "shortDescription": {
                 "text": "no-read-only-root-fs"
               },
@@ -38,7 +38,7 @@
       },
       "results": [
         {
-          "ruleId": 0,
+          "ruleId": "0",
           "message": {
             "text": "(check: no-read-only-root-fs, remediation: Set readOnlyRootFilesystem to true in your container's securityContext.)"
           },
@@ -46,7 +46,7 @@
             {
               "physicalLocation": {
                 "artifactLocation": {
-                  "uri": "/actions-runner/templates/deployment.yaml",
+                  "uri": "actions-runner/templates/deployment.yaml",
                   "uriBaseId": "PROJECTROOT"
                 },
                 "region": {
