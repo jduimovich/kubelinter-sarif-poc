@@ -48,31 +48,31 @@ function sresults(sarif, optional_set) {
 }
 
 var id = 0; 
-function new_rule(existingRules, kfinding) {
-    var exists = existingRules[kfinding.rule]
+function find_or_create_rule(existingRules, linter_line) {
+    var exists = existingRules[linter_line.rule]
     if (exists) return exists; 
-    var r = {} 
-    r.id = Object.keys (existingRules).length; 
-    kfinding.id = r.id; // link back to single id
-    r.shortDescription = { "text": kfinding.rule };
-    r.fullDescription = { "text": kfinding.details };
-    r.help = { "text": "text for help", "markdown": "markdown ***text for help" };
-    r.defaultConfiguration = { "level": "error" };
-    r.properties = { "tags": [] }
-    existingRules[kfinding.rule] = r;
-    return r;
+    var rule = {} 
+    rule.id = Object.keys (existingRules).length; 
+    linter_line.id = rule.id; // link back to single id
+    rule.shortDescription = { "text": linter_line.rule };
+    rule.fullDescription = { "text": linter_line.details };
+    rule.help = { "text": "text for help", "markdown": "markdown ***text for help" };
+    rule.defaultConfiguration = { "level": "error" };
+    rule.properties = { "tags": [] }
+    existingRules[linter_line.rule] = rule;
+    return rule;
 }
 
-function new_result(kfinding) {
-    r = {}
-    r.ruleId = kfinding.id;
-    r.message = {
-        "text": kfinding.details
+function new_result(linter_line) {
+    result = {}
+    result.ruleId = linter_line.id;
+    result.message = {
+        "text": linter_line.details
     }
-    r.locations = [{
+    result.locations = [{
         "physicalLocation": {
             "artifactLocation": {
-                "uri": kfinding.filename,
+                "uri": linter_line.filename,
                 "uriBaseId": "PROJECTROOT"
             },
             "region": {
@@ -80,7 +80,7 @@ function new_result(kfinding) {
             }
         }
     }];
-    return r;
+    return result;
 }
 
 
@@ -112,13 +112,15 @@ function parseErrorLine(e) {
 
 function createSarif (d1) {
     var lines = d1.split(/\r\n|\n/);
-    lines = lines.filter (function (e) { return e.length != 0 &&  e[0] == '/' })
+    lines = lines.filter (
+        function (e) { return e.length != 0 && 
+              e.indexOf('(check:') != -1 })
    
     var results = [] 
     var existing = {} 
     lines.forEach (function (e) {
         var r = parseErrorLine (e)   
-        new_rule(existing, r);   
+        find_or_create_rule(existing, r);   
         results.push (new_result(r)) 
     });  
     var newRules = Object.keys(existing).map (function (e) { return existing[e]}); 
