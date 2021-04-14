@@ -9,15 +9,17 @@ call kubelint deploy
 call kubelint deploy 2>klint.txt 
 echo "run sarif generator "
 node convert.js klint.txt output.sarif
- 
-jq . output.sarif  > tmp.sarif
-copy tmp.sarif output.sarif
+rem hack to remote docker directory "/dir/"
+sed s/\/dir\///g output.sarif >tmp.sarif
+jq . tmp.sarif  > output.sarif
 del tmp.sarif 
+ 
 
 echo Helm Chart Scan with no filtering
 call kubelint actions-runner   
 call kubelint actions-runner 2>helm.txt 
 node convert.js helm.txt helm.sarif 
-jq . helm.sarif  > tmp.sarif
-copy tmp.sarif helm.sarif
+rem hack to remote docker directory "/dir/"
+sed s/\/dir\///g helm.sarif >tmp.sarif
+jq . tmp.sarif  > helm.sarif
 del tmp.sarif 
